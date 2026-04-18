@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Góc Kỷ Niệm</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f5f5;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #0a6c8e;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    color: white;
+}
+
+.nav-right a {
+    margin: 0 10px;
+    color: white;
+    text-decoration: none;
+}
+
+/* TITLE */
+.header {
+    margin-top: 100px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 40px;
+}
+
+/* UPLOAD BOX */
+.upload-box {
+    width: 300px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px dashed #0a6c8e;
+    border-radius: 15px;
+    text-align: center;
+    background: white;
+    cursor: pointer;
+}
+
+.upload-box:hover {
+    background: #e0f7ff;
+}
+
+/* GALLERY */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div><b>THPT Nguyễn Trãi</b></div>
+    <div class="nav-right">
+        <a href="index.html">Trang chủ</a>
+    </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>📸 Góc Kỷ Niệm</h1>
+    <p>Lưu giữ những khoảnh khắc đẹp</p>
+</div>
+
+<!-- UPLOAD -->
+<div class="upload-box" onclick="document.getElementById('file').click()">
+    <i class="fas fa-upload fa-2x"></i>
+    <p>Bấm để tải ảnh lên</p>
+    <input type="file" id="file" hidden onchange="preview(event)">
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery"></div>
+
+<script>
+function preview(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        const img = document.createElement("img");
+        img.src = reader.result;
+        document.getElementById("gallery").appendChild(img);
+    }
+
+    reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
