@@ -1,713 +1,1270 @@
 
-<!DOCTYPE html>
-<html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Du lịch Việt Nam 3 miền</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THPT Nguyễn Trãi</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root{
-    --main:#006994;
-    --glow:#00eaff;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
 }
 
 html{
     scroll-behavior:smooth;
-}
-
-/* ===== BACKGROUND ĐỘNG ===== */
+}  
+  
+/* ================= BODY ================= */
 body{
-    margin:0;
-    font-family:'Segoe UI',Arial,sans-serif;
-    background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-    background-size:400% 400%;
-    animation:bgGradient 12s infinite alternate;
-    color:#222;
-}
-@keyframes bgGradient{
-    0%{background-position:0% 50%}
-    100%{background-position:100% 50%}
+    background: linear-gradient(180deg,#f6fbff,#ffffff,#f0f9ff);
+    color:#0f172a;
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+    font-family:'Segoe UI', sans-serif; /* chuyển từ * sang đây cho sạch hơn */
+    line-height:1.6;
 }
 
-/* ===== HEADER ===== */
-header{
-    background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover;
-    color:white;
-    text-align:center;
-    padding:150px 20px;
-    animation:fadeDown 1.2s;
-}
-header h1{
-    font-size:56px;
-    text-shadow:0 0 25px rgba(0,255,255,.6);
-}
-header p{
-    font-size:22px;
-    opacity:.9;
+/* glow nền */
+body::before,
+body::after{
+    content:"";
+    position:fixed;
+    width:900px;
+    height:900px;
+    border-radius:50%; /* FIX: làm glow mềm hơn */
+    z-index:-1;
+    pointer-events:none;
+    filter: blur(60px); /* FIX: glow mượt hơn */
 }
 
-/* ===== NAV ===== */
-nav{
-    position:sticky;
+body::before{
+    background:radial-gradient(circle, rgba(56,189,248,.18), transparent 70%);
+    top:-200px;
+    left:-200px;
+}
+
+body::after{
+    background:radial-gradient(circle, rgba(0,255,255,.15), transparent 70%);
+    bottom:-250px;
+    right:-200px;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+    position:fixed;
     top:0;
-    z-index:99;
-    background:rgba(0,105,148,.95);
-    padding:12px;
-    text-align:center;
-    backdrop-filter:blur(8px);
+    width:100%;
+    padding:14px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:rgba(255,255,255,.65); /* FIX: trong hơn */
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px); /* FIX iOS */
+
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+    z-index:999;
+
+    transition:0.3s ease; /* FIX: mượt khi scroll sau này */
 }
-nav a{
-    color:white;
-    margin:0 14px;
+
+/* logo */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:22px;
+    font-weight:800;
+    color:#0284c7;
+}
+
+/* logo img */
+.logo img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    transition:0.3s ease;
+}
+
+.logo img:hover{
+    transform:rotate(6deg) scale(1.08);
+}
+
+/* menu */
+.menu{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    flex-wrap:wrap;
+}
+
+.menu a{
     text-decoration:none;
-    font-weight:bold;
-    transition:.3s;
-}
-nav a i{margin-right:6px}
-nav a:hover{
-    color:#ffeb3b;
-    text-shadow:0 0 15px yellow;
+    color:#334155;
+    font-weight:600;
+    position:relative;
+    transition:0.25s ease;
 }
 
-
-
-/* ===== SECTION ===== */
-section{
-    background:white;
-    margin:30px;
-    padding:28px;
-    border-radius:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-    animation:fadeUp .9s;
-    transition:.4s;
+/* hover đẹp hơn */
+.menu a:hover{
+    color:#0ea5e9;
+    transform:translateY(-2px);
 }
-section:hover{
-    transform:translateY(-4px);
-}
-/* ===== TIÊU ĐỀ CẦU VỒNG ===== */
-h2{
-    font-size:34px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
 
+/* underline animation */
+.menu a::after{
+    content:"";
+    position:absolute;
+    width:0;
+    height:2px;
+    background:#38bdf8;
+    left:0;
+    bottom:-6px;
+    transition:0.3s ease;
+    border-radius:10px;
+}
+
+.menu a:hover::after{
+    width:100%;
+}
+  
+/* ================= HERO ================= */
+.hero{
+    height:100vh;
+    background:url("https://lh3.googleusercontent.com/pw/AP1GczNJGVAS8x2vxuv-PKdRxDt4aXIti6Ntgz3EHAJH8gt5DPbyRkell8tmQj8TH80UnqrRittEzH70DRKvM342JQ2bFmqwMocDnSFCr0m6LD3rLOLjSUosGNH0_vh0Joy_kaUqPYrWF-MtjXXQxZD7dJ4Myg=w966-h644-s-no-gm?authuser=0") center/cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+/* overlay tối */
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
     background:linear-gradient(
-        270deg,
-        red,
-        orange,
-        yellow,
-        lime,
-        cyan,
-        blue,
-        violet,
-        red
+        to bottom,
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.75)
     );
-    background-size:400% 400%;
+}
+
+/* content */
+.hero-content{
+    position:relative;
+    color:white;
+    animation:fadeUp 1.3s;
+}
+
+/* glow nền sau chữ */
+.hero-content::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(56,189,248,.35), transparent 70%);
+    filter:blur(80px);
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    z-index:-1;
+}
+
+/* title chính */
+.hero-text h1{
+    font-size:72px;
+    font-weight:900;
+    letter-spacing:3px;
+    line-height:1.1;
+
+    background: linear-gradient(
+        90deg,
+        #38bdf8,
+        #22d3ee,
+        #a78bfa,
+        #38bdf8
+    );
+    background-size:300%;
+
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 
-    position:relative;
-    display:inline-block;
-    padding-bottom:10px;
+    animation:
+        titleMove 6s linear infinite,
+        titleFloat 3s ease-in-out infinite,
+        titleFade 1.2s ease;
 
-    animation:rainbowText 6s linear infinite;
-    transition:.4s;
+    text-shadow:
+        0 0 8px rgba(56,189,248,.9),
+        0 0 18px rgba(56,189,248,.6),
+        0 0 30px rgba(167,139,250,.5);
 }
 
-/* gạch chân cầu vồng phát sáng */
-h2::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:65%;
-    height:4px;
-    border-radius:6px;
+@keyframes titleMove{
+    0%{background-position:0%}
+    100%{background-position:300%}
+}
 
-    background:linear-gradient(
-        270deg,
-        red,
-        orange,
-        yellow,
-        lime,
-        cyan,
-        blue,
-        violet,
-        red
+/* chữ NGUYỄN TRÃI */
+.hero-text .highlight{
+    display:block;
+    margin-top:10px;
+    font-size:86px;
+    font-weight:900;
+    letter-spacing:3px;
+
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ff7a00,
+        #ffd400,
+        #00ff66,
+        #00cfff,
+        #0066ff,
+        #b300ff,
+        #ff0000
     );
-    background-size:400% 400%;
-    animation:rainbowText 4s linear infinite;
-    box-shadow:0 0 20px rgba(255,255,255,.8);
-    transition:.4s;
+    background-size:400%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:
+        rainbowMove 6s linear infinite,
+        pulseGlow 3s ease-in-out infinite;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,0.7),
+        0 0 18px rgba(0,255,255,0.6),
+        0 0 28px rgba(255,0,255,0.4);
+}
+
+/* chạy màu */
+@keyframes rainbowMove{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+
+/* glow nhịp thở */
+@keyframes pulseGlow{
+    0%,100%{
+        filter: drop-shadow(0 0 10px rgba(0,255,255,.4));
+    }
+    50%{
+        filter: drop-shadow(0 0 25px rgba(255,0,255,.6));
+    }
+}
+/* ================= SECTION ================= */
+.section{
+    padding:100px 10%;
+    animation:fadeUp 1s;
+    text-align:left; /* 👈 đổi từ center sang trái */
+}
+
+/* tiêu đề */
+.section h2{
+    font-size:38px;
+    margin-bottom:20px;
+    color:#0284c7;
+    text-align:left; /* 👈 đảm bảo luôn nằm trái */
+    position:relative;
+}
+
+/* gạch dưới tiêu đề (giữ hiệu ứng đẹp của bạn) */
+.section h2::after{
+    content:"";
+    display:block;
+    width:120px;
+    height:4px;
+    margin-top:10px;
+    border-radius:10px;
+    background:linear-gradient(90deg,#00f5ff,#38bdf8,#00f5ff);
+}
+
+/* đoạn mô tả */
+.section p{
+    max-width:700px;
+    line-height:1.7;
+    margin:0; /* 👈 bỏ auto để không bị căn giữa */
+    opacity:.85;
+}
+
+  
+/* ================= GRID ẢNH (UPGRADE) ================= */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+/* card ảnh */
+.grid img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+    border-radius:20px;
+
+    position:relative;
+    transition:0.4s ease;
+
+    /* nền + chiều sâu */
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.15),
+        0 0 15px rgba(56,189,248,.15);
+
+    filter:brightness(0.95);
 }
 
 /* hover */
-h2:hover{
-    transform:translateX(8px) scale(1.05);
-    filter:drop-shadow(0 0 20px white);
-}
-h2:hover::after{
-    width:100%;
+.grid img:hover{
+    transform:scale(1.07);
+    filter:brightness(1.1) contrast(1.05);
+
+    box-shadow:
+        0 25px 60px rgba(56,189,248,.35),
+        0 0 30px rgba(167,139,250,.25);
 }
 
-/* animation cầu vồng */
-@keyframes rainbowText{
-    0%{background-position:0% 50%}
-    100%{background-position:100% 50%}
+/* hiệu ứng ánh sáng quét nhẹ */
+.grid img::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:50%;
+    height:100%;
+    background:linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+    );
+    transform:skewX(-20deg);
 }
 
-/* ===== ANIMATION ===== */
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(30px)}
-    to{opacity:1;transform:translateY(0)}
-}
-@keyframes fadeDown{
-    from{opacity:0;transform:translateY(-30px)}
-    to{opacity:1;transform:translateY(0)}
+.grid img:hover::after{
+    animation: shine 1s ease;
 }
 
-/* ===== CARD ===== */
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:22px;
+@keyframes shine{
+    0%{left:-100%;}
+    100%{left:150%;}
 }
-.card{
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 10px 25px rgba(0,0,0,.3);
-    transition:.5s;
-    background:white;
-}
-.card:hover{
-    transform:translateY(-12px) scale(1.03);
-    box-shadow:0 0 30px var(--glow);
-}
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-.card div{padding:15px}
+  
+/* ================= VIDEO ================= */
+video{
+    width:650px;
+    max-width:90%;
+    margin-top:35px;
+    border-radius:22px;
 
-/* ===== GALLERY ===== */
-.gallery{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-}
-.gallery img{
-    width:230px;
-    height:150px;
-    margin:10px;
-    border-radius:14px;
-    transition:.4s;
-}
-.gallery img:hover{
-    transform:scale(1.15) rotate(2deg);
-    box-shadow:0 0 25px var(--glow);
+    /* nền + chiều sâu */
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.25),
+        0 0 20px rgba(56,189,248,.15);
+
+    transition:0.4s ease;
+    filter:brightness(0.95);
 }
 
-/* ===== INPUT ===== */
-input,textarea{
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border-radius:10px;
-    border:1px solid #ccc;
-    font-size:15px;
+/* hover video */
+video:hover{
+    transform:scale(1.02);
+    filter:brightness(1.05);
+    box-shadow:
+        0 25px 60px rgba(56,189,248,.3),
+        0 0 30px rgba(167,139,250,.25);
 }
+
+/* ================= MAP ================= */
+iframe{
+    width:85%;
+    height:400px;
+    margin-top:30px;
+
+    border-radius:22px;
+    border:none;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.2),
+        0 0 20px rgba(0,255,255,.15);
+
+    transition:0.4s ease;
+    filter:contrast(1.05);
+}
+
+/* hover map */
+iframe:hover{
+    transform:scale(1.01);
+    box-shadow:
+        0 25px 60px rgba(0,255,255,.25),
+        0 0 35px rgba(56,189,248,.25);
+}
+  
+/* ================= COMMENT ================= */
+textarea{
+    width:60%;
+    height:120px;
+    padding:15px;
+
+    border-radius:15px;
+    border:1px solid rgba(56,189,248,.4);
+
+    outline:none;
+    font-size:16px;
+
+    box-shadow:
+        inset 0 0 10px rgba(0,0,0,.05),
+        0 0 15px rgba(56,189,248,.1);
+
+    transition:0.3s ease;
+}
+
+/* focus textarea */
+textarea:focus{
+    border-color:#38bdf8;
+    box-shadow:
+        0 0 20px rgba(56,189,248,.3),
+        inset 0 0 10px rgba(0,0,0,.05);
+}
+
+/* button */
 button{
     margin-top:15px;
-    padding:12px 26px;
+    padding:12px 30px;
+
     border:none;
     border-radius:30px;
-    background:var(--main);
+
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
     color:white;
+    font-weight:bold;
+
     cursor:pointer;
-    font-size:16px;
-    transition:.3s;
+    transition:0.3s ease;
+
+    box-shadow:0 10px 25px rgba(56,189,248,.25);
 }
+
+/* hover button */
 button:hover{
-    background:#004d6e;
-    transform:scale(1.1);
-    box-shadow:0 0 25px var(--glow);
+    transform:scale(1.08);
+    box-shadow:0 15px 35px rgba(167,139,250,.35);
 }
 
-/* ===== THÔNG BÁO ===== */
-.thongbao{
-    display:none;
-    margin-top:15px;
-    padding:15px;
-    background:#e6f2ff;
-    border-left:6px solid var(--main);
-    animation:fadeUp .6s;
-}
-.thongbao img{
-    max-width:220px;
-    margin-top:10px;
-    border-radius:10px;
+/* ================= ANIMATION (GIỮ NHẸ) ================= */
+@keyframes fadeUp{
+    from{opacity:0; transform:translateY(40px)}
+    to{opacity:1; transform:translateY(0)}
 }
 
-/* ===== LIÊN HỆ – GIỮ NGUYÊN (CHÁY) ===== */
-.contact{
-    position:relative;
-    text-align:center;
-    padding:35px;
-    border-radius:28px;
-    color:white;
-    background:#001f2f;
-    animation:heartbeat 1.2s infinite;
-    box-shadow:0 0 40px orange;
-    overflow:hidden;
-}
-@keyframes heartbeat{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.06)}
-}
-.contact::before{
-    content:"";
-    position:absolute;
-    inset:-60px;
-    background:conic-gradient(red,orange,yellow,red);
-    animation:spinFire 3s linear infinite;
-    filter:blur(55px);
-    opacity:.9;
-    z-index:-1;
-}
-@keyframes spinFire{
-    to{transform:rotate(360deg)}
-}
-.contact img{
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    border:4px solid orange;
-    animation:pulse 1s infinite;
-}
-contact img{
-    width:130px;
-    height:130px;
-    border-radius:50%;
-    border:4px solid orange;
-    object-fit:cover;
-}
-@keyframes pulse{
-    0%{box-shadow:0 0 10px orange}
-    50%{box-shadow:0 0 40px red}
-    100%{box-shadow:0 0 10px orange}
-}
-.contact a{
-    color:#ffeb3b;
-    font-weight:bold;
-    text-decoration:none;
-}
-
-/* ===== TOP BUTTON ===== */
-#topBtn{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    background:var(--main);
-    color:white;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    font-size:20px;
-}
-#topBtn:hover{
-    transform:scale(1.2);
-    box-shadow:0 0 35px orange;
-}
-
-/* ===== FOOTER ===== */
-footer{
-    background:var(--main);
-    color:white;
-    text-align:center;
-    padding:18px;
-}
-
-#musicBtn{
-    position:fixed;
-    left:20px;
-    bottom:20px;
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    background:var(--main);
-    color:white;
+/* ================= LOGO ================= */
+.logo{
     display:flex;
     align-items:center;
-    justify-content:center;
-    cursor:pointer;
+    gap:12px;
     font-size:22px;
-    box-shadow:0 0 20px cyan;
-    transition:.3s;
-    z-index:999;
+    font-weight:800;
+    color:#0284c7;
 }
-#musicBtn:hover{
-    transform:scale(1.15);
+
+/* ảnh logo */
+.logo img{
+    width:42px;
+    height:42px;
+    object-fit:cover;
+    border-radius:50%;
+
+    box-shadow:0 0 15px rgba(56,189,248,.5);
+
+    transition:0.4s ease;
 }
-.title-wrap{
+
+/* hover logo */
+.logo img:hover{
+    transform:rotate(8deg) scale(1.1);
+    box-shadow:0 0 25px rgba(0,255,255,.8);
+}
+
+/* chữ logo */
+.logo span{
+    font-weight:900;
+    letter-spacing:1px;
+
+    background:linear-gradient(
+        90deg,
+        #ff0000,
+        #ff7a00,
+        #ffd400,
+        #00ff66,
+        #00cfff,
+        #0066ff,
+        #b300ff,
+        #ff0000
+    );
+
+    background-size:400%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation: logoRainbow 6s linear infinite;
+
+    /* glow nhẹ hơn, đỡ cháy mắt */
+    text-shadow:
+        0 0 8px rgba(56,189,248,.4),
+        0 0 15px rgba(167,139,250,.3);
+}
+
+/* chạy màu */
+@keyframes logoRainbow{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+/* ================= COMMENT ================= */
+
+/* chỉ áp dụng trong section comment */
+#comment textarea{
+    width:60%;
+    height:120px;
+    padding:15px;
+
+    border-radius:15px;
+    border:1px solid rgba(56,189,248,.4);
+
+    outline:none;
+    font-size:16px;
+
+    box-shadow:
+        inset 0 0 10px rgba(0,0,0,.05),
+        0 0 15px rgba(56,189,248,.1);
+
+    transition:0.3s ease;
+}
+
+/* focus */
+#comment textarea:focus{
+    border-color:#38bdf8;
+    box-shadow:
+        0 0 20px rgba(56,189,248,.3),
+        inset 0 0 10px rgba(0,0,0,.05);
+}
+
+/* button chỉ trong comment */
+#comment button{
+    margin-top:15px;
+    padding:12px 30px;
+
+    border:none;
+    border-radius:30px;
+
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
+    color:white;
+    font-weight:bold;
+
+    cursor:pointer;
+    transition:0.3s ease;
+
+    box-shadow:0 10px 25px rgba(56,189,248,.25);
+}
+
+/* hover */
+#comment button:hover{
+    transform:scale(1.08);
+    box-shadow:0 15px 35px rgba(167,139,250,.35);
+}
+
+/* ================= LOGO ================= */
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:22px;
+    font-weight:800;
+    color:#0284c7;
+}
+
+/* logo img */
+.logo img{
+    width:42px;
+    height:42px;
+    object-fit:cover;
+    border-radius:50%;
+
+    box-shadow:0 0 15px rgba(56,189,248,.5);
+    transition:0.4s ease;
+}
+
+.logo img:hover{
+    transform:rotate(8deg) scale(1.1);
+    box-shadow:0 0 25px rgba(0,255,255,.8);
+}
+
+/* logo text */
+.logo span{
+    font-weight:900;
+    letter-spacing:1px;
+
+    background:linear-gradient(
+        90deg,
+        #ff0000,
+        #ff7a00,
+        #ffd400,
+        #00ff66,
+        #00cfff,
+        #0066ff,
+        #b300ff,
+        #ff0000
+    );
+
+    background-size:400%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation: logoRainbow 6s linear infinite;
+
+    text-shadow:
+        0 0 8px rgba(56,189,248,.4),
+        0 0 15px rgba(167,139,250,.3);
+}
+
+/* animation */
+@keyframes logoRainbow{
+    0%{background-position:0%}
+    100%{background-position:400%}
+}
+  
+/* ===== COMMENT LIST ===== */  
+.comment-list{  
+    margin-top:40px;  
+    display:flex;  
+    flex-direction:column;  
+    gap:20px;  
+    width:70%;  
+    margin-left:auto;  
+    margin-right:auto;  
+}  
+  
+.comment{  
+    display:flex;  
+    gap:15px;  
+    background:#020617;  
+    padding:18px;  
+    border-radius:15px;  
+    align-items:center;  
+}  
+  
+.comment img{  
+    border-radius:50%;  
+}  
+  
+.comment h4{  
+    margin:0;  
+    color:#38bdf8;  
+}  
+.section{  
+    max-width:1200px;  
+    margin:120px auto;  
+    padding:0 40px;  
+}  
+  
+/* tiêu đề section canh trái */  
+.section h2{  
+    font-size:42px;  
+    font-weight:900;  
+    margin-bottom:25px;  
+    text-align:left;  
+    position:relative;  
+  
+    background:linear-gradient(90deg,#00f5ff,#ff00ff,#00ff88);  
+    -webkit-background-clip:text;  
+    -webkit-text-fill-color:transparent;  
+}  
+  
+/* gạch màu dưới tiêu đề */  
+.section h2::after{  
+    content:"";  
+    display:block;  
+    width:120px;  
+    height:5px;  
+    margin-top:10px;  
+    border-radius:10px;  
+    background:linear-gradient(90deg,#00f5ff,#ff00ff,#00ff88);  
+}  
+#gioithieu p{  
+    font-size:20px;  
+    line-height:1.8;  
+    padding:35px;  
+    border-radius:25px;  
+  
+    background:rgba(255,255,255,0.08);  
+    backdrop-filter:blur(15px);  
+    border:1px solid rgba(255,255,255,0.2);  
+  
+    box-shadow:0 0 25px rgba(0,255,255,0.2);  
+}  
+.grid{  
+    display:grid;  
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));  
+    gap:25px;  
+    margin-bottom:40px;  
+}  
+  
+.grid img{  
+    width:100%;  
+    height:230px;  
+    object-fit:cover;  
+    border-radius:20px;  
+    transition:0.5s;  
+    box-shadow:0 0 20px rgba(0,255,255,0.2);  
+}  
+  
+.grid img:hover{  
+    transform:scale(1.05);  
+    box-shadow:0 0 40px rgba(255,0,255,0.5);  
+}  
+  
+/* video giữa trang */  
+#media video{  
+    display:block;  
+    margin:auto;  
+    width:70%;  
+    border-radius:20px;  
+    box-shadow:0 0 40px rgba(0,255,255,0.4);  
+}  
+#map iframe{  
+    width:100%;  
+    height:450px;  
+    border:none;  
+    border-radius:25px;  
+    box-shadow:0 0 40px rgba(0,255,255,0.4);  
+}  
+#comment textarea{  
+    width:100%;  
+    height:120px;  
+    border-radius:15px;  
+    border:none;  
+    padding:15px;  
+    font-size:16px;  
+    outline:none;  
+    resize:none;  
+}  
+  
+#comment button{  
+    margin-top:15px;  
+    padding:12px 30px;  
+    border:none;  
+    border-radius:30px;  
+    font-weight:700;  
+    cursor:pointer;  
+  
+    background:linear-gradient(90deg,#00f5ff,#ff00ff);  
+    color:white;  
+    transition:0.3s;  
+}  
+  
+#comment button:hover{  
+    transform:scale(1.1);  
+    box-shadow:0 0 20px cyan;  
+}  
+  
+/* card bình luận */  
+.comment-box{  
+    background:rgba(255,255,255,0.08);  
+    padding:20px;  
+    border-radius:20px;  
+    margin-top:20px;  
+    backdrop-filter:blur(10px);  
+    border:1px solid rgba(255,255,255,0.2);  
+    box-shadow:0 0 20px rgba(0,255,255,0.2);  
+}  
+  
+.comment-name{  
+    font-weight:900;  
+    color:#00f5ff;  
+}  
+  
+.comment-time{  
+    font-size:12px;  
+    opacity:0.6;  
+}  
+@keyframes titleFloat{  
+    0%,100%{ transform:translateY(0); }  
+    50%{ transform:translateY(-8px); }  
+}  
+/* ================= AI BUTTON ================= */
+.ai-button{
+    position:fixed;
+    bottom:25px;
+    right:25px;
+
+    width:62px;
+    height:62px;
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#38bdf8,#a78bfa,#22d3ee);
+    background-size:200%;
+
     display:flex;
     justify-content:center;
-    margin-bottom:30px;
-}
-
-.rainbow-title{
-    position:relative;
-    padding:18px 55px;
-    font-size:42px;
-    letter-spacing:4px;
-    border-radius:70px;
-    color:white;
-    background:linear-gradient(270deg,
-        red,orange,yellow,lime,cyan,blue,violet,red);
-    background-size:400% 400%;
-    animation:rainbowMove 6s linear infinite, pulse 1.6s infinite;
-    text-shadow:0 0 20px white;
-}
-
-.rainbow-title::before{
-    content:"";
-    position:absolute;
-    inset:-10px;
-    border-radius:80px;
-    background:conic-gradient(
-        red,orange,yellow,lime,cyan,blue,violet,red);
-    z-index:-1;
-    filter:blur(8px);
-    animation:spin 4s linear infinite;
-}
-
-@keyframes rainbowMove{
-    0%{background-position:0% 50%}
-    100%{background-position:100% 50%}
-}
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-.tri-an-section{
-    text-align:center;
-    margin:50px 0;
-}
-
-.tri-an-btn{
-    padding:12px 24px;
-    border:none;
-    border-radius:25px;
-    background:linear-gradient(90deg,#ff6a00,#ffd000);
-    font-weight:bold;
-    cursor:pointer;
-    box-shadow:0 0 15px rgba(255,200,0,.8);
-    transition:.3s;
-}
-.tri-an-btn:hover{
-    transform:scale(1.1);
-}
-
-.tri-an-box{
-    max-height:0;
-    overflow:hidden;
-    margin:20px auto;
-    width:85%;
-    max-width:600px;
-    background:#111;
-    color:white;
-    padding:0 20px;
-    border-radius:15px;
-    box-shadow:0 0 20px gold;
-    transition:max-height .6s ease, padding .4s ease;
-}
-
-.tri-an-box.active{
-    max-height:500px;
-    padding:20px;
-}
-.card img{
-    width:100%;
-    height:140px;          /* tăng chiều cao */
-    object-fit:contain;    /* 👈 KHÔNG cắt */
-    background:#000;       /* nền đen cho gọn */
-}
-#vanhoa .card{
-    background: linear-gradient(
-        135deg,
-        #ff4d4d,
-        #ffa64d,
-        #ffff4d,
-        #4dff88,
-        #4dd2ff,
-        #8c4dff
-    );
-    padding:6px;
-    border-radius:18px;
-}
-
-#vanhoa .card img{
-    background:#111;
-    border-radius:12px 12px 0 0;
-}
-
-#vanhoa .card p{
-    background:#111;
-    margin:0;
-    padding:10px;
-    color:white;
-    font-weight:bold;
-    border-radius:0 0 12px 12px;
-}
-#vanhoa .card{
-    display:flex;
-    flex-direction:column;
     align-items:center;
+
+    font-size:26px;
+    cursor:pointer;
+
+    box-shadow:
+        0 0 20px rgba(56,189,248,.5),
+        0 0 40px rgba(167,139,250,.3);
+
+    z-index:9999;
+
+    transition:0.3s ease;
+
+    animation: aiPulse 3s infinite;
 }
 
-#vanhoa .card img{
-    max-width:90%;
-    height:140px;
-    object-fit:contain;
-    margin:10px auto;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>DU LỊCH VIỆT NAM</h1>
-<p>Khám phá vẻ đẹp ba miền đất nước</p>
-</header>
-
-<nav>
-<a href="#gioithieu"><i class="fa-solid fa-house"></i>Giới thiệu</a>
-<a href="#bamien"><i class="fa-solid fa-map"></i>Ba miền</a>
-<a href="#amthuc"><i class="fa-solid fa-utensils"></i>Ẩm thực</a>
-<a href="#gallery"><i class="fa-solid fa-camera"></i>Góc ảnh</a>
-<a href="#timkiem"><i class="fa-solid fa-earth-asia"></i>Tìm kiếm địa điểm</a>
-<a href="#lienhe"><i class="fa-solid fa-phone"></i>Liên hệ</a>
-<a href="about.html">
-    <i class="fa-solid fa-users"></i>Về chúng tôi
-</a>
-
-</nav>
-
-<section id="gioithieu">
-<h2>Giới thiệu</h2>
-<p>
-Việt Nam – dải đất hình chữ S không chỉ nổi tiếng bởi cảnh sắc thiên nhiên đa dạng,
-mà còn bởi những giá trị văn hóa, lịch sử và con người đầy nghĩa tình.
-Website này được nhóm chúng em thực hiện như một trang báo tường điện tử,
-vừa để giới thiệu vẻ đẹp đất nước,
-vừa là món quà nhỏ ghi lại dấu ấn tuổi học trò
-trong những năm tháng cuối cùng của thời học sinh.
-</p>
-</section>
-
-<section id="bamien">
-<h2>Du lịch ba miền</h2>
-<div class="cards">
-<div class="card"><img src="https://images.unsplash.com/photo-1528127269322-539801943592"><div>
-<b>Miền Bắc</b><br>
-Nơi lưu giữ những giá trị truyền thống lâu đời,
-trầm lắng như những năm tháng đầu tiên của tuổi học trò.
-</div>
-</div>
-<div class="card"><img src="https://dulich3mien.vn/wp-content/uploads/2022/12/Thap-Nghinh-Phong-10.jpg"><div>
-<b>Miền Trung</b><br>
-Nơi có biển xanh, nắng gió và những con người kiên cường,
-giống như tinh thần vượt khó của tuổi trẻ học trò.
-</div>
-</div>
-<div class="card"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"><div>
-<b>Miền Nam</b><br>
-Năng động, cởi mở và đầy sức sống,
-giống như tinh thần trẻ trung của chúng em trước ngưỡng cửa tương lai.
-</div></div>
-</div>
-</section><section id="vanhoa">
-<h2>🎭 Văn hóa Việt Nam</h2>
-<p>
-Văn hóa Việt Nam là sự hòa quyện giữa truyền thống và hiện đại,
-được thể hiện qua trang phục, lễ hội và các giá trị tinh thần
-được gìn giữ qua nhiều thế hệ.
-</p>
-<div class="card-container">
-    <div class="card">
-        <img src="https://scontent.fdad4-1.fna.fbcdn.net/v/t1.15752-9/624630076_1799796797377137_1213048710807086469_n.jpg?stp=dst-jpg_s2048x2048_tt6&_nc_cat=104&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeG6fK92VPzrGn6-maKqGeelr5BuVx9ZwjKvkG5XH1nCMnmWx0O7K3CMo3RbVOcYQDVaRIPcUIfmF4ro-cNF6q3K&_nc_ohc=nTJXm_ov38MQ7kNvwEmNq-9&_nc_oc=AdkX-9lq7dI2w9a7Drf2DKKH-AHIg2I9a-hSkl0bhl6743YmfGFlLnBeJ7W_7froDjs&_nc_zt=23&_nc_ht=scontent.fdad4-1.fna&oh=03_Q7cD4gEZsCBRmlwShK0OJgW8MIPN89w2v2mmkxMzJDXD8hb2DQ&oe=69A6BDE1" alt="">
-        <p>Trang phục truyền thống</p>
-    </div>
-
-    <div class="card">
-        <img src="https://media.vov.vn/sites/default/files/styles/large/public/2022-01/img_5219.jpg" alt="">
-        <p>Lễ hội dân gian</p>
-    </div>
-
-    <div class="card">
-        <img src="https://gotrangtri.vn/wp-content/uploads/2018/12/di-san-van-hoa-vat-the.jpg" alt="">
-        <p>Di sản văn hóa</p>
-    </div>
-</div>
-</section>
-</section>
-
-
-<section id="amthuc">
-<h2>Ẩm thực Việt Nam</h2>
-<div class="cards">
-<div class="card"><img src="https://vnn-imgs-f.vgcloud.vn/2021/11/27/15/pho-khoi-30.jpg"><div>Phở</div></div>
-<div class="card"><img src="https://cdn3.ivivu.com/2022/09/bun-bo-hue-ivivu-2.jpg"><div>Bún bò Huế</div></div>
-<div class="card"><img src="https://th.bing.com/th/id/R.333ad4550466cbd9424ba30241560d72?rik=WnVdJUqMDbpUKg&pid=ImgRaw&r=0"><div>Bánh mì</div></div>
-<div class="card"><img src="https://th.bing.com/th/id/R.2c8834984a91d28854723a0ddec7fa08?rik=mt9XAp7kluc29A&riu=http%3a%2f%2fphuyentourism.gov.vn%2fwp-content%2fuploads%2f2020%2f12%2f100b247b7c3b9565cc2a.jpg&ehk=UfaDpOCT9ChVgLFATJyWqlPHLWUeSzodn%2fcHuV5%2bNMg%3d&risl=&pid=ImgRaw&r=0"><div>Mắt cá ngừ đại dương</div></div>
-<div class="card"><img src="https://th.bing.com/th/id/R.d8d395b92c21e73364e46515aec9c4cd?rik=HQg4XeNXjTKAig&pid=ImgRaw&r=0"><div>Nem chua thanh hoá</div></div>
-<div class="card"><img src="https://tse2.mm.bing.net/th/id/OIP.Cq7_UXQd80U-jlrerHmJ2gHaFW?rs=1&pid=ImgDetMain&o=7&rm=3"><div>Chả ram</div></div>
-<div class="card"><img src="https://img6.thuthuatphanmem.vn/uploads/2022/11/17/anh-bat-chao-long-dep_052629555.jpg"><div>Cháo lòng</div></div>
-<div class="card"><img src="https://cdn.tgdd.vn/Files/2017/03/18/962192/cach-nau-hu-tieu-tai-nha-7_800x536.jpg"><div>Hủ tiếu</div></div>
-<div class="card"><img src="https://bing.com/th?id=OSK.60d46edc2bdc569f7762122061b9ff85"><div>Gà chiên mắm</div></div>
-<div class="card"><img src="https://www.tastingtable.com/img/gallery/bnh-xo-the-delectable-vietnamese-crepes-you-should-know/l-intro-1666117324.jpg"><div>Bánh xèo</div></div>
-<div class="card"><img src="https://toplist.vn/images/800px/com-tam-507259.jpg"><div>Cơm tắm</div></div>
-<div class="card"><img src="https://toplist.vn/images/800px/banh-chungbanh-tet-274171.jpg"><div>Bánh chưng</div></div>
-</div>
-</section>
-
-<section id="gallery">
-<h2>Góc ảnh</h2>
-<div class="gallery">
-<img src="https://th.bing.com/th/id/R.bf4e198b38424870d7281cddefc1b6b5?rik=%2bBh%2fCK4dwAuhsg&pid=ImgRaw&r=0">
-<img src="https://bcp.cdnchinhphu.vn/Uploaded/dangdinhnam/2016_08_14/hinh-anh-tuong-lai-nao-cho-nganh-du-lich-tinh-quang-ninh-1.jpg">
-<img src="https://media.vov.vn/sites/default/files/styles/large/public/2020-09/99-thuyen_hoa.jpg">
-<img src="https://media.vneconomy.vn/w800/images/upload/2022/09/05/rice-field-terrace-vietnam-shutterstock-554460046-d71ff868b1.jpeg">
-<img src="https://toquoc.mediacdn.vn/Uploaded/gamhh/2017_11_06/10_GGIZ.jpg">
-<img src="https://www.sunlife.com.vn/content/dam/sunlife/regional/vietnam/images/du-lich-viet-nam-2020-1.jpg">
-<img src="https://www.vnbuyerguide.com/img_data/images/756083584333-screenshot-20230117-170955-photos-8611[1].jpg">
-
-</div>
-</section>
-
-<section id="timkiem">
-<h2>🔍 Tìm kiếm địa điểm</h2>
-<input id="place" placeholder="Ví dụ: Đà Nẵng">
-<button onclick="tim()">Mở Google Earth</button>
-<div id="tb" class="thongbao">🚀 Đang mở Google Earth 3D cho bạn...</div>
-</section>
-
-<section id="lienhe">
-
-<div class="title-wrap">
-    <div class="rainbow-title">LIÊN HỆ</div>
-</div>
-
-<div class="contact">
-    <img src="https://scontent.fdad4-1.fna.fbcdn.net/v/t39.30808-6/626816153_1196259989352836_4093401472514707422_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGxZ8Tp5FnCIJPiUxtTdJMHDwnqgUDFD8EPCeqBQMUPwQQEYvCl-WR2lVC8BQYzPQ4I9QNOnahIBqxOyD77nM1g&_nc_ohc=B77REaDuGgYQ7kNvwExVAqm&_nc_oc=Adn29o76U97oWEjPNARP7BO_CGz7Do1aVvyQ3nUH-EaWIDch71gJZ9k0RdbaAUi_nBc&_nc_zt=23&_nc_ht=scontent.fdad4-1.fna&_nc_gid=uNR-VDB0nEdxvwSCr7eAnw&oh=00_AfsYQdYTzu9_p_c83CP5sBFtRh04_St-8tUT4J4h2HsO0Q&oe=69853529"alt="Admin">
-    <p><b>Nhóm:</b> Cầu Vồng Khuyết – 12C3</p>
-    <p>
-        <b>Admin:</b>
-        <a href="https://www.facebook.com/Namdiepvien00biet" target="_blank">
-         Thành Nam
-        </a>
-    </p>
-	<p>
-	    <b>Email:</b>
-         <a href="https://mail.google.com/mail/u/0/?hl=en" target="_blank">
-         NhómCầuVòngKhuyết@.gmail.com
-	    </a>
-	</p>
-</div>
-
-</section>
-
-
-<section id="binhluan">
-<h2>💬 Bình luận</h2>
-<textarea id="comment" rows="4" placeholder="Nhập góp ý của bạn..."></textarea>
-<button onclick="guiBinhLuan()">Gửi bình luận</button>
-<div id="tbComment" class="thongbao">
-💚 Cảm ơn góp ý của bạn chúng tôi có thể sẽ lắng nghe!!!
-<img src="https://scontent.fdad4-1.fna.fbcdn.net/v/t1.15752-9/623763403_4383836128566515_594773121224614419_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeF53-_9dy8js3hzw_OegqZfYDKl5AptVbRgMqXkCm1VtJngXtRNKVfpLyK7riow-7dGR3G7Nh0CUyGdXzYFb5dl&_nc_ohc=ZMRVnOBN4EAQ7kNvwEZ9QtQ&_nc_oc=AdnFATeuvyj9gcOJPHSqfHnYkFuyQwPLVdJ0J_6YR3VRAEgPG-rKOYw5L7OYRoV0zGY&_nc_zt=23&_nc_ht=scontent.fdad4-1.fna&oh=03_Q7cD4gGJxBxr1wb7-IoZmL2e10ZxF_xupzKKhT8VS7TnJlu3Bg&oe=69A6D702">
-</div>
-</section>
-
-
-
-<footer>
-@2026 Báo Tường Điện Tử Du Lịch Việt Nam | Bản quyền: Cầu Vòng Khuyết
-</footer>
-<!-- NÚT NHẠC -->
-<div id="musicBtn" onclick="toggleMusic()">🔊</div>
-
-<audio id="bgMusic" loop>
-    <source src="Xa Anh Mi Ban Chiu _ Teen Vng C Lofi TikTok - Umie x CaoTri x meChill.mp3" type="audio/mpeg">
-</audio>
-
-<div id="topBtn" onclick="window.scrollTo(0,0)">↑</div>
-<section class="tri-an-section">
-    <button class="tri-an-btn" onclick="toggleThanks()">
-        💌 Lời tri ân
-    </button>
-
-    <div class="tri-an-box" id="triAn">
-        <p>
-        Ba năm học dưới mái trường thân yêu là quãng thời gian
-        chứa đựng biết bao kỷ niệm đẹp.
-        Chúng em xin gửi lời tri ân chân thành đến quý thầy cô
-        đã luôn tận tâm dạy dỗ, truyền đạt tri thức
-        và đồng hành cùng chúng em trong suốt chặng đường học tập.
-        Những bài học hôm nay sẽ là hành trang quý giá cho mai sau.
-        </p>
-    </div>
-</section>
-
-
-<script>
-function tim(){
-    let p=document.getElementById("place").value;
-    if(p===""){alert("Vui lòng nhập địa điểm");return;}
-    document.getElementById("tb").style.display="block";
-    window.open("https://earth.google.com/web/search/"+p,"_blank");
+.ai-button:hover{
+    transform:scale(1.12) rotate(5deg);
+    box-shadow:
+        0 0 25px rgba(56,189,248,.7),
+        0 0 50px rgba(167,139,250,.5);
 }
 
-function guiBinhLuan(){
-    let c=document.getElementById("comment").value;
-    if(c===""){alert("Bạn chưa nhập bình luận");return;}
-    document.getElementById("tbComment").style.display="block";
-    document.getElementById("comment").value="";
+@keyframes aiPulse{
+    0%,100%{ background-position:0% }
+    50%{ background-position:100% }
 }
 
-window.onscroll=function(){
-    document.getElementById("topBtn").style.display=
-        window.scrollY>300?"flex":"none";
+/* ================= AI BOX ================= */
+.ai-box{
+    position:fixed;
+    bottom:105px;
+    right:25px;
+
+    width:320px;
+    height:420px;
+
+    display:none;
+    flex-direction:column;
+
+    border-radius:18px;
+
+    background:rgba(15,23,42,0.75);
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(56,189,248,.25);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.4),
+        0 0 25px rgba(56,189,248,.15);
+
+    overflow:hidden;
+    z-index:9999;
+
+    animation: boxIn 0.25s ease;
 }
 
-let playing=false;
-let music=document.getElementById("bgMusic");
-
-function toggleMusic(){
-    if(!playing){
-        music.volume=0.4;
-        music.play();
-        document.getElementById("musicBtn").innerHTML="🔈";
-        playing=true;
-    }else{
-        music.pause();
-        document.getElementById("musicBtn").innerHTML="🔊";
-        playing=false;
+@keyframes boxIn{
+    from{
+        transform:translateY(20px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0);
+        opacity:1;
     }
 }
 
-function toggleThanks(){
-    document.getElementById("triAn").classList.toggle("active");
+/* ================= HEADER ================= */
+.ai-header{
+    padding:12px;
+    text-align:center;
+
+    font-weight:800;
+    color:white;
+
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
+
+    letter-spacing:1px;
+
+    box-shadow:0 0 15px rgba(56,189,248,.4);
 }
 
+/* ================= CHAT ================= */
+.ai-chat{
+    flex:1;
+    padding:10px;
 
+    overflow:auto;
+    color:#e2e8f0;
+    font-size:14px;
 
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+/* message style */
+.ai-chat div{
+    padding:8px 10px;
+    border-radius:12px;
+    max-width:90%;
+
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(8px);
+}
+
+/* ================= INPUT ================= */
+.ai-box input{
+    width:100%;
+    padding:12px;
+
+    border:none;
+    outline:none;
+
+    background:rgba(255,255,255,0.06);
+    color:white;
+
+    border-top:1px solid rgba(255,255,255,0.1);
+
+    font-size:14px;
+}
+
+.ai-box input::placeholder{
+    color:rgba(255,255,255,0.5);
+}
+
+/* ================= BUTTON ================= */
+.ai-box button{
+    width:100%;
+    padding:12px;
+
+    border:none;
+    cursor:pointer;
+
+    background:linear-gradient(90deg,#38bdf8,#a78bfa);
+    color:white;
+    font-weight:700;
+
+    transition:0.3s ease;
+
+    box-shadow:0 0 15px rgba(56,189,248,.25);
+}
+
+.ai-box button:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 25px rgba(167,139,250,.35);
+}
+/* ===== LED CHẠY NGANG ===== */
+.led-line{
+    width:100%;
+    overflow:hidden;
+    white-space:nowrap;
+
+    font-size:18px;
+    font-weight:700;
+    color:#38bdf8;
+
+    margin:15px 0 25px;
+
+    text-shadow:0 0 10px rgba(56,189,248,.6);
+
+    display:inline-block;
+
+    animation: ledRun 10s linear infinite;
+}
+
+/* animation chạy chữ */
+@keyframes ledRun{
+    0%{
+        transform:translateX(100%);
+    }
+    100%{
+        transform:translateX(-100%);
+    }
+}
+ .footer{
+    background: #1f1f2e;
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.footer-content h3{
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #ffd36b;
+}
+
+.footer-content p{
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer .desc{
+    max-width: 600px;
+    margin: 10px auto;
+    opacity: 0.8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.footer .copyright{
+    margin-top: 15px;
+    font-size: 12px;
+    opacity: 0.6;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 10px;
+}
+.comment{
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 10px 0;
+    padding: 8px;
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.comment .avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment .content{
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.4;
+}
+</style>  
+</head>
+  <body> 
+ <!-- ===== NAVBAR ===== -->  <div class="navbar">  
+    <div class="logo">  
+    <img src="https://scontent.fdad4-1.fna.fbcdn.net/v/t39.30808-6/540568780_122139187688908301_6605054400821476298_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=qlX83gmxViIQ7kNvwGxUZL3&_nc_oc=AdqcBo07m3gaAXj_go71ieYhlJzOtgKI4kySSfRD62znV6Rzi3jzlw5ns3ou7XT1soM&_nc_zt=23&_nc_ht=scontent.fdad4-1.fna&_nc_gid=SE4ikphBtRSWligzEl6XWQ&_nc_ss=7a3a8&oh=00_Af3Ac1e1LSweE3_TyktQ_z4NjTVk0wRIM35Kk-OgneQEUA&oe=69E98CF1" alt="logo">  
+    <span>THPT Nguyễn Trãi</span>
+	</div>  <div class="menu">  
+    <a href="#gioithieu"><i class="fas fa-school"></i> Giới thiệu</a>  
+    <a href="#media"><i class="fas fa-image"></i> Hình ảnh</a>  
+    <a href="#map"><i class="fas fa-map-location-dot"></i> Vị trí</a>  
+    <a href="#comment"><i class="fas fa-comments"></i> Bình luận</a>  
+    <a href="kyniem.html"><i class="fas fa-camera"></i> Kỷ niệm</a>  
+</div>
+
+</div>  <!-- ===== HERO ===== -->  <div class="hero">  
+    <div class="hero-content hero-text">  
+        <h1>  
+            TRƯỜNG THPT  
+            <span class="highlight">NGUYỄN TRÃI</span>  
+        </h1>  
+    </div>  
+</div>  
+<!-- ================= GIỚI THIỆU (NÂNG CẤP) ================= -->
+<section class="section reveal" id="gioithieu">
+
+    <h2 class="title">Giới thiệu trường</h2>
+
+    <!-- LED chạy ngang -->
+    <div class="led-line">
+        ✨ Chào mừng bạn đến với THPT Nguyễn Trãi ✨ • Nơi lưu giữ thanh xuân học trò • Môi trường học tập năng động •
+    </div>
+
+    <p class="subtitle">
+        Trường THPT Nguyễn Trãi là môi trường học tập năng động – sáng tạo – thân thiện,  
+        nơi không chỉ truyền đạt kiến thức mà còn giúp học sinh phát triển kỹ năng sống,  
+        tư duy và cảm xúc. Đây là nơi lưu giữ những kỷ niệm đẹp nhất của tuổi học trò.
+    </p>
+
+</section> 
+</section>  <!-- ================= MEDIA ================= -->  <section class="section reveal" id="media">  
+    <h2 class="title">Hình ảnh & Video</h2>  <div class="media-layout">  
+    <div class="grid">  
+        <img src="1.jpg">  
+        <img src="2.jpg">  
+        <img src="3.jpg">  
+    </div>  
+
+    <div class="video-box">  
+        <video controls>  
+            <source src="video.mp4" type="video/mp4">  
+        </video>  
+    </div>  
+</div>
+
+</section>  
+<!-- ================= MAP ================= -->  <section class="section reveal" id="map">  
+    <h2 class="title">Vị trí trường</h2>  
+    <iframe src="https://www.google.com/maps?q=THPT%20Nguyễn%20Trãi&output=embed"></iframe> 
+	</section>
+	
+	
+<!-- ================= COMMENT ================= -->
+<section class="section reveal" id="comment">
+    <h2 class="title">Cảm nghĩ học sinh</h2>
+
+    <div class="comment-box">
+        <textarea id="cmt" placeholder="Viết cảm nghĩ của bạn về mái trường..."></textarea>
+        <button onclick="addComment()">Gửi bình luận</button>
+    </div>
+
+    <!-- LIST COMMENT -->
+    <div id="list" class="comment-list"></div>
+</section>
+
+<script>
+const names = ["Đắc Di","Thành Nam","Diệu Hoàng","Việt Trường","Tâm Như"];
+
+/* ===== ADD COMMENT ===== */
+function addComment(){
+    let box = document.getElementById("list");
+    let input = document.getElementById("cmt");
+
+    let text = input.value.trim();
+    if(text === "") return;
+
+    // comment của bạn
+    box.innerHTML += `
+    <div class="comment">
+        <img class="avatar" src="data:image/webp;base64,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">
+        <div class="content">
+            <b>Thành Nam:</b> ${text}
+        </div>
+    </div>`;
+
+    input.value = "";
+
+    // fake comment
+    let fakeComments = [
+        {
+            name: " Tâm Như",
+            img: "https://lh3.googleusercontent.com/pw/AP1GczNznn3AvNFYfvaNPy0p9gn1zY7pdicWtSHcsCc5t5I4Pwbu1vRS0zge8epPnCeB594Ud0GqxJeV0v-GkS-Dq-GLa6PRWgTGbbUwvtdFPMG84wmthozRUsRSx6TOm2-DflPnD8SxMRYhbRLe995iCJpclA=w429-h644-s-no-gm?authuser=0",
+            text: "Trường rất đẹp và nhiều hoạt động thú vị ❤️"
+        },
+        {
+            name: "Đắc Di",
+            img: "https://lh3.googleusercontent.com/pw/AP1GczO1Xz5BcHQelIga1LcOoz9d3gUqkdwKeEpNhohjxugs4KYDtomwPBml6pkAK3yw2vbIO9zrzrlne8-n0Fcug9dLpE_2_GucLnzaDNtLX2ogtYHi4kg2ifG6NUdVswPBR5SbPiEhFifWMQeHmeX3eUOE3g=w429-h644-s-no-gm?authuser=0",
+            text: "Mình rất thích môi trường học ở đây 😄"
+        },
+        {
+            name: "Diệu Hoàng",
+            img: "https://lh3.googleusercontent.com/pw/AP1GczMDw3VtKCZABcqvBaQ_jwt9WVWeT8QK7FV7EHO4DYY03QjpOyNc7bcdkuxaqUbJZCVL-WAUgaK8zV1GG7NwYXM_W6arLFeAev3n2qHFdQ8Y1QP7Pw_GlnVv4OemcA2XOVjHqlgNm9QoVk3cVS_bgHWyNw=w429-h644-s-no-gm?authuser=0",
+            text: "Giáo viên thân thiện, học sinh hòa đồng 👍"
+        },
+        {
+            name: "Việt Trường",
+            img: "https://scontent.fdad4-1.fna.fbcdn.net/v/t39.30808-6/672427120_1256851859960315_7722075778298481126_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=ft_uomxFIpkQ7kNvwH1oaMU&_nc_oc=AdqYE53Grrg0gmpCc_ys7SdWQXB2gqPzqv_mwcbl3QTV_KHu4dpjVB6FxngG6fo4o-s&_nc_zt=23&_nc_ht=scontent.fdad4-1.fna&_nc_gid=MnNnM4uQ12dIxyiI7oXrUg&_nc_ss=7a3a8&oh=00_Af3ZH8BG2Tz_9vLXrepZnUxFJ97vEp8_3pwXNjs7nWyzAQ&oe=69EA6C9E",
+            text: "Ai hỏi"
+        },
+	];
+	
+	       
+
+   // 👇 hiện tất cả
+
+    fakeComments.forEach(cmt => {
+
+        box.innerHTML += `
+
+        <div class="comment">
+
+            <img class="avatar" src="${cmt.img}">
+
+            <div class="content">
+
+                <b>${cmt.name}:</b> ${cmt.text}
+			</div>
+		</div>`;
+	});
+}
 </script>
+<div id="aiBox" class="ai-box">
+    <div class="ai-header">AI Trợ Lý</div>
 
-</body>
+    <div id="aiChat" class="ai-chat"></div>
+
+    <input id="aiInput" placeholder="Nhập câu hỏi...">
+    <button onclick="sendAI()">Gửi</button>
+</div>
+
+<div class="ai-button" onclick="toggleAI()">
+    🤖
+</div>
+
+<script>
+   function sendAI(){
+    let input = document.getElementById("aiInput");
+    let chat = document.getElementById("aiChat");
+
+    let text = input.value.trim();
+    if(text === "") return;
+
+    // ✔ sửa lỗi: phải in text thật
+    chat.innerHTML +=  `<div><b>Bạn:</b> ${text}</div> `;
+
+    let lower = text.toLowerCase();
+
+    let reply = "Bạn hỏi nhiều quá mình chịu";
+
+    // ✔ AI "khôn hơn" (nhiều từ khóa hơn)
+    if(lower.includes("trường") || lower.includes("nguyễn trãi")){
+        reply = "THPT Nguyễn Trãi là môi trường học tập rất đẹp, năng động và thân thiện ❤️";
+    }
+    else if(lower.includes("web") || lower.includes("này") || lower.includes("là") || lower.includes("gì")){
+        reply = "Web này được tạo ra để giới thiệu Trường Nguyễn Trãi 😄";
+    }
+    else if(lower.includes("hello") || lower.includes("hi") || lower.includes("xin chào") || lower.includes("chào")){
+        reply = "Xin chào 👋 mình là trợ lý AI!";
+    }
+    else if(lower.includes("ảnh") || lower.includes("hình") || lower.includes("photo")){
+        reply = "Bạn có thể xem hoặc upload ảnh trong mục Hình ảnh 📸";
+    }
+	 setTimeout(()=>{
+        chat.innerHTML +=  `<div><b>AI:</b> ${reply}</div> `;
+        chat.scrollTop = chat.scrollHeight;
+    }, 500);
+
+    input.value = "";
+}
+
+function toggleAI(){
+    let box = document.getElementById("aiBox");
+    if(!box) return;
+
+    box.style.display = (box.style.display === "flex") ? "none" : "flex";
+}
+</script>
+<footer class="footer">
+    <div class="footer-content">
+        <h3>🌈 Nhóm Cầu Vồng Khuyết</h3>
+        <p>THPT Nguyễn Trãi</p>
+
+        <p class="desc">
+            Trang web được xây dựng nhằm giới thiệu trường học, chia sẻ hình ảnh
+            và hỗ trợ học sinh trong quá trình học tập và trải nghiệm.
+        </p>
+
+        <div class="copyright">
+            © 2026 Nhóm Cầu Vồng Khuyết. All rights reserved.
+        </div>
+    </div>
+</footer>
+</body> 
+
+ 
 </html>
